@@ -12,12 +12,6 @@ public class App {
         this.service = new ShortLinksService(links);
     }
 
-    public App(UUID user) {
-        this.user = user;
-        this.links = new HashMap<>();
-        this.service = new ShortLinksService(links);
-    }
-
     public String addShortLunk(String originalLink) {
         if (user == null) createUser();
         return service.addShortLink(originalLink, user);
@@ -30,5 +24,4 @@ public class App {
     private void createUser() {
         user = UUID.randomUUID();
     }
-
 }
