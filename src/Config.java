@@ -10,7 +10,7 @@ public class Config {
         try (InputStream input = new FileInputStream("config.properties")) {
             props.load(input);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
