@@ -3,13 +3,11 @@ import java.util.UUID;
 
 public class App {
     private UUID user;
-    private final HashMap<String, ShortLinkContainer> links;
     private final ShortLinksService service;
 
     public App() {
         this.user = null;
-        this.links = new HashMap<>();
-        this.service = new ShortLinksService(links);
+        this.service = new ShortLinksService(new ConcurrentHashMapDB());
     }
 
     public String addShortLunk(String originalLink) {

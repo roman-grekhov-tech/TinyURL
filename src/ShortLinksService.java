@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.UUID;
 
 public class ShortLinksService {
@@ -6,9 +5,9 @@ public class ShortLinksService {
     private static final int DEFAULT_LIMIT = Integer.parseInt(Config.get("shortLink.defaultLimit"));
     private static final int TTL_IN_MINUTES = Integer.parseInt(Config.get("shortLink.timeToLiveInMinutes"));
 
-    private final HashMap<String, ShortLinkContainer> links;
+    private final Database links;
 
-    public ShortLinksService(HashMap<String, ShortLinkContainer> links) {
+    public ShortLinksService(Database links) {
         this.links = links;
     }
 
@@ -16,7 +15,7 @@ public class ShortLinksService {
         String shortLink;
         do {
             shortLink = ShortLinkBuilder.createShortUrl();
-        } while (links.containsKey(shortLink));
+        } while (links.has(shortLink));
 
         ShortLinkContainer container = new ShortLinkContainer(
                 originalLink,
@@ -25,13 +24,13 @@ public class ShortLinksService {
                 TTL_IN_MINUTES
         );
 
-        links.put(shortLink, container);
+        links.add(shortLink, container);
 
         return shortLink;
     }
 
     public ShortLinkUseResult useShortLink(String shortLink) {
-        if (!links.containsKey(shortLink)) {
+        if (!links.has(shortLink)) {
             return new ShortLinkUseResult(ShortLinkUseResult.Status.NOT_FOUND);
         }
 
@@ -47,7 +46,6 @@ public class ShortLinksService {
 
         container.increaseTimesUsed();
         return new ShortLinkUseResult(ShortLinkUseResult.Status.SUCCESS, container.getOriginalLink());
-
     }
 
 }
