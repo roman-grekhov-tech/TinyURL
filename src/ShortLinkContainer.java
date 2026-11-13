@@ -2,20 +2,23 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ShortLinkContainer {
+
+    private static final int TTL_IN_MINUTES = Integer.parseInt(Config.get("shortLink.timeToLiveInMinutes"));
+
     private final String originalLink;
     private final int limit;
     private int timesUsed;
     private final UUID owner;
     private final LocalDateTime expirationDate;
 
-    public ShortLinkContainer(String originalLink, int limit, UUID owner, long timeToLiveInMinutes) {
+    public ShortLinkContainer(String originalLink, int limit, UUID owner) {
         this.originalLink = originalLink;
         this.limit = limit;
         this.timesUsed = 0;
         this.owner = owner;
 
         LocalDateTime now = LocalDateTime.now();
-        this.expirationDate = now.plusMinutes(timeToLiveInMinutes);
+        this.expirationDate = now.plusMinutes(TTL_IN_MINUTES);
     }
 
     public void increaseTimesUsed() {

@@ -3,7 +3,6 @@ import java.util.UUID;
 public class ShortLinksService {
 
     private static final int DEFAULT_LIMIT = Integer.parseInt(Config.get("shortLink.defaultLimit"));
-    private static final int TTL_IN_MINUTES = Integer.parseInt(Config.get("shortLink.timeToLiveInMinutes"));
 
     private final Database links;
     private final SchedulerToDeleteExpired scheduler;
@@ -19,12 +18,7 @@ public class ShortLinksService {
             shortLink = ShortLinkBuilder.createShortUrl();
         } while (links.has(shortLink));
 
-        ShortLinkContainer container = new ShortLinkContainer(
-                originalLink,
-                DEFAULT_LIMIT,
-                user,
-                TTL_IN_MINUTES
-        );
+        ShortLinkContainer container = new ShortLinkContainer(originalLink, DEFAULT_LIMIT, user);
 
         links.add(shortLink, container);
 
