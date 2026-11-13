@@ -6,9 +6,11 @@ public class ShortLinksService {
     private static final int TTL_IN_MINUTES = Integer.parseInt(Config.get("shortLink.timeToLiveInMinutes"));
 
     private final Database links;
+    private final SchedulerToDeleteExpired scheduler;
 
     public ShortLinksService(Database links) {
         this.links = links;
+        this.scheduler = new SchedulerToDeleteExpired(10, 30, links);
     }
 
     public String addShortLink(String originalLink, UUID user) {
@@ -48,4 +50,7 @@ public class ShortLinksService {
         return new ShortLinkUseResult(ShortLinkUseResult.Status.SUCCESS, container.getOriginalLink());
     }
 
+    public void shutdown() {
+        scheduler.shutdown();
+    }
 }

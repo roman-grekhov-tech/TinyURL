@@ -21,4 +21,8 @@ public class App {
     private void createUser() {
         user = UUID.randomUUID();
     }
+
+    public void shutdown() {
+        service.shutdown();
+    }
 }

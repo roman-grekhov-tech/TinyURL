@@ -33,6 +33,7 @@ public class UserInterface {
 
             if (input.equals("0")) {
                 System.out.println("Приложение завершает работу...");
+                app.shutdown();
                 break;
             }
         }
