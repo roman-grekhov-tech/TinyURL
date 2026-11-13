@@ -10,7 +10,7 @@ public class ShortLinksService {
 
     public ShortLinksService(Database links) {
         this.links = links;
-        this.scheduler = new SchedulerToDeleteExpired(10, 30, links);
+        this.scheduler = new SchedulerToDeleteExpired(links);
     }
 
     public String addShortLink(String originalLink, UUID user) {
