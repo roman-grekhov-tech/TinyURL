@@ -31,8 +31,7 @@ public class ShortLinkContainer {
     }
 
     public boolean hasExpired() {
-//        return expirationDate.isAfter(LocalDateTime.now());
-        return false;
+        return LocalDateTime.now().isAfter(expirationDate);
     }
 
     public boolean hasAccess(UUID uuid) {
