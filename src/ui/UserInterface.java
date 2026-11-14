@@ -1,3 +1,8 @@
+package ui;
+
+import model.App;
+import model.ShortLinkUseResult;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;

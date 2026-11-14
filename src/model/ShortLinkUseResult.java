@@ -1,3 +1,5 @@
+package model;
+
 public class ShortLinkUseResult {
     public enum Status {
         SUCCESS,

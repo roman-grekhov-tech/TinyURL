@@ -1,3 +1,7 @@
+package model;
+
+import database.Database;
+
 import java.util.UUID;
 
 public class ShortLinksService {

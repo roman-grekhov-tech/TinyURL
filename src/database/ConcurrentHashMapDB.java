@@ -1,3 +1,7 @@
+package database;
+
+import model.ShortLinkContainer;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
