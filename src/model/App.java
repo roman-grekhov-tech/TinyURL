@@ -13,6 +13,10 @@ public class App {
         this.service = new ShortLinksService(new ConcurrentHashMapDB());
     }
 
+    public UUID getUser() {
+        return user;
+    }
+
     public String addShortLunk(String originalLink) {
         if (user == null) createUser();
         return service.addShortLink(originalLink, user);

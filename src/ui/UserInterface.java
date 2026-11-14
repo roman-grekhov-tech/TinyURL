@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class UserInterface {
     private final App app;
@@ -48,6 +49,8 @@ public class UserInterface {
 
     private void printMainMenu() {
         System.out.println();
+        printCurrentUser(app.getUser());
+        System.out.println();
         System.out.println("1. Создать короткую ссылку");
         System.out.println("2. Перейти по короткой ссылке");
         System.out.println("-----------------------------");
@@ -73,6 +76,15 @@ public class UserInterface {
             case NOT_FOUND -> System.out.println("Ссылка не найдена");
             case LIMIT_REACHED -> System.out.println("Лимит использования ссылки исчерпан");
             case EXPIRED -> System.out.println("Время действия ссылки истекло");
+        }
+    }
+
+    private void printCurrentUser(UUID user) {
+        System.out.print("\t\t");
+        if (user == null) {
+            System.out.println("Гость");
+        } else {
+            System.out.println(user);
         }
     }
 }
