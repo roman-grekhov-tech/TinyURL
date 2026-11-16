@@ -1,6 +1,9 @@
-package ui.linkRedaction;
+package ui;
 
+import model.linkRedaction.LinkRedaction;
 import model.ShortLinkInfo;
+import model.linkRedaction.LinkDeletion;
+import model.linkRedaction.LinkEdit;
 
 import java.util.Scanner;
 

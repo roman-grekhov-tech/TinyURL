@@ -1,4 +1,4 @@
-package ui.linkRedaction;
+package model.linkRedaction;
 
 public class LinkEdit extends LinkRedaction {
     public LinkEdit(int limit) {

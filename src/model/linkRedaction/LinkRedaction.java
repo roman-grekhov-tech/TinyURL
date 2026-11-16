@@ -1,4 +1,4 @@
-package ui.linkRedaction;
+package model.linkRedaction;
 
 public abstract class LinkRedaction {
     public enum Status {

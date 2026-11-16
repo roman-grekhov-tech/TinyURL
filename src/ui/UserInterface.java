@@ -3,8 +3,7 @@ package ui;
 import model.App;
 import model.ShortLinkInfo;
 import model.ShortLinkUseResult;
-import ui.linkRedaction.LinkRedaction;
-import ui.linkRedaction.LinkRedactor;
+import model.linkRedaction.LinkRedaction;
 
 import java.awt.*;
 import java.io.IOException;

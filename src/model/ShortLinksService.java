@@ -1,7 +1,7 @@
 package model;
 
 import database.Database;
-import ui.linkRedaction.LinkRedaction;
+import model.linkRedaction.LinkRedaction;
 
 import java.util.UUID;
 
