@@ -10,4 +10,8 @@ public interface Database {
     boolean has(String shortLink);
 
     void deleteExpired();
+
+    void delete(String shortLink);
+
+    void edit(String shortLink, ShortLinkContainer container);
 }

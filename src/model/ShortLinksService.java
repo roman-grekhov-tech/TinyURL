@@ -1,6 +1,7 @@
 package model;
 
 import database.Database;
+import ui.linkRedaction.LinkRedaction;
 
 import java.util.UUID;
 
@@ -27,6 +28,36 @@ public class ShortLinksService {
         links.add(shortLink, container);
 
         return shortLink;
+    }
+
+    public ShortLinkInfo getShortLinkInfo(String shortLink, UUID user) {
+        if (!links.has(shortLink)) return null;
+
+        ShortLinkContainer container = links.get(shortLink);
+        if (!container.hasAccess(user)) return null;
+
+        return new ShortLinkInfo(container);
+    }
+
+    public void deleteShortLink(String shortLink) {
+        links.delete(shortLink);
+    }
+
+    public void editShortLink(String shortLink, LinkRedaction redaction, UUID user) {
+        ShortLinkContainer oldContainer = links.get(shortLink);
+        if (oldContainer == null) return;
+
+        if (!oldContainer.hasAccess(user)) return;
+
+        ShortLinkContainer newContainer = new ShortLinkContainer(
+                oldContainer.getOriginalLink(),
+                redaction.getLimit(),
+                user
+        );
+        newContainer.setExpirationDate(oldContainer.getExpirationDate());
+        newContainer.setTimesUsed(oldContainer.getTimesUsed());
+
+        links.edit(shortLink, newContainer);
     }
 
     public ShortLinkUseResult useShortLink(String shortLink) {

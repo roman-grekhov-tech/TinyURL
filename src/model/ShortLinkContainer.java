@@ -11,7 +11,7 @@ public class ShortLinkContainer {
     private final int limit;
     private int timesUsed;
     private final UUID owner;
-    private final LocalDateTime expirationDate;
+    private LocalDateTime expirationDate;
 
     public ShortLinkContainer(String originalLink, int limit, UUID owner) {
         this.originalLink = originalLink;
@@ -29,6 +29,26 @@ public class ShortLinkContainer {
 
     public String getOriginalLink() {
         return originalLink;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public int getTimesUsed() {
+        return timesUsed;
+    }
+
+    public LocalDateTime getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDateTime newDate) {
+        this.expirationDate = newDate;
+    }
+
+    public void setTimesUsed(int timesUsed) {
+        this.timesUsed = timesUsed;
     }
 
     public boolean hasReachedLimit() {

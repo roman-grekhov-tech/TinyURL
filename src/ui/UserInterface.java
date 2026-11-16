@@ -1,7 +1,10 @@
 package ui;
 
 import model.App;
+import model.ShortLinkInfo;
 import model.ShortLinkUseResult;
+import ui.linkRedaction.LinkRedaction;
+import ui.linkRedaction.LinkRedactor;
 
 import java.awt.*;
 import java.io.IOException;
@@ -37,6 +40,35 @@ public class UserInterface {
                 handleShortLinkUseResult(result);
             }
 
+            if (input.equals("3")) {
+                System.out.print("Введите короткую ссылку для настройки: ");
+                String shortLink = scanner.nextLine();
+                ShortLinkInfo info = app.getShortLinkInfo(shortLink);
+
+                if (info == null) {
+                    System.out.println("Неверный пользователь");
+                    continue;
+                }
+
+                LinkRedactor redactor = new LinkRedactor(info, scanner);
+                LinkRedaction redaction = redactor.start();
+
+                if (redaction != null) {
+                    if (redaction.getStatus() == LinkRedaction.Status.DELETE) {
+                        app.deleteShortLink(shortLink);
+                    }
+                    if (redaction.getStatus() == LinkRedaction.Status.EDIT) {
+                        app.editLink(redaction, shortLink);
+                    }
+                }
+            }
+
+            if (input.equals("4")) {
+                String newUsersString = scanner.nextLine();
+                UUID newUser = UUID.fromString(newUsersString);
+                app.changeUSer(newUser);
+            }
+
             if (input.equals("0")) {
                 System.out.println("Приложение завершает работу...");
                 app.shutdown();
@@ -53,6 +85,7 @@ public class UserInterface {
         System.out.println();
         System.out.println("1. Создать короткую ссылку");
         System.out.println("2. Перейти по короткой ссылке");
+        System.out.println("3. Настройки короткой ссылки");
         System.out.println("-----------------------------");
         System.out.println("0. Завершить работу");
         System.out.println();

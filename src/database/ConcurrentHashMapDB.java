@@ -31,4 +31,12 @@ public class ConcurrentHashMapDB implements Database {
             }
         }
     }
+
+    public void delete(String shortLink) {
+        db.remove(shortLink);
+    }
+
+    public void edit(String shortLink, ShortLinkContainer container) {
+        this.db.put(shortLink, container);
+    }
 }
