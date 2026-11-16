@@ -26,17 +26,20 @@ public class LinkRedactor {
             printMainMenu();
             String input = scanner.nextLine();
 
-            if (input.equals("1")) {
-                System.out.print("Введите новый лимит: ");
-                int newLimit = Integer.parseInt(scanner.nextLine());
-                return new LinkEdit(newLimit);
+            switch (input) {
+                case "1" -> {
+                    System.out.print("Введите новый лимит: ");
+                    int newLimit = Integer.parseInt(scanner.nextLine());
+                    return new LinkEdit(newLimit);
+                }
+                case "2" -> {
+                    return new LinkDeletion();
+                }
+                case "0" -> {
+                    return null;
+                }
             }
 
-            if (input.equals("2")) {
-                return new LinkDeletion();
-            }
-
-            if (input.equals("0")) return null;
         }
 
     }
