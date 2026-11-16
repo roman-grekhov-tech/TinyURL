@@ -30,6 +30,10 @@ public class LinkRedactor {
                 case "1" -> {
                     System.out.print("Введите новый лимит: ");
                     int newLimit = Integer.parseInt(scanner.nextLine());
+                    if (newLimit < 1) {
+                        System.out.println("Ошибка: Лимит должен быть больше 0");
+                        continue;
+                    }
                     return new LinkEdit(newLimit);
                 }
                 case "2" -> {
