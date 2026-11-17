@@ -1,6 +1,5 @@
 package model;
 
-import database.ConcurrentHashMapDB;
 import model.linkRedaction.LinkRedaction;
 
 import java.util.UUID;
@@ -11,7 +10,7 @@ public class App {
 
     public App() {
         this.user = null;
-        this.service = new ShortLinksService(new ConcurrentHashMapDB());
+        this.service = new ShortLinksService();
     }
 
     public UUID getUser() {

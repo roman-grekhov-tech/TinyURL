@@ -1,5 +1,6 @@
 package model;
 
+import database.ConcurrentHashMapDB;
 import database.Database;
 import model.linkRedaction.LinkRedaction;
 
@@ -12,8 +13,8 @@ public class ShortLinksService {
     private final Database links;
     private final SchedulerToDeleteExpired scheduler;
 
-    public ShortLinksService(Database links) {
-        this.links = links;
+    public ShortLinksService() {
+        this.links = new ConcurrentHashMapDB();
         this.scheduler = new SchedulerToDeleteExpired(links);
     }
 
