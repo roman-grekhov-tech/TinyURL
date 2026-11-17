@@ -21,7 +21,7 @@ public class ShortLinksService {
     public String addShortLink(String originalLink, UUID user) {
         String shortLink;
         do {
-            shortLink = ShortLinkBuilder.createShortUrl();
+            shortLink = ShortLinkGenerator.generateShortLink();
         } while (links.has(shortLink));
 
         ShortLinkContainer container = new ShortLinkContainer(originalLink, DEFAULT_LIMIT, user);
