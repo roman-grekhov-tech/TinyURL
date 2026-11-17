@@ -1,5 +1,4 @@
 import model.AddShortLinkResult;
-import model.ShortLinkContainer;
 import model.ShortLinkUseResult;
 import model.ShortLinksService;
 import org.junit.Assert;
