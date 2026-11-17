@@ -60,5 +60,7 @@ public class LinkRedactor {
         System.out.println("2. Удалить ссылку");
         System.out.println();
         System.out.println("0. Выйти");
+        System.out.println();
+        System.out.print("> ");
     }
 }
