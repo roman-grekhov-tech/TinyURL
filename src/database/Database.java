@@ -3,7 +3,7 @@ package database;
 import model.ShortLinkContainer;
 
 public interface Database {
-    void add(String shortLink, ShortLinkContainer container);
+    ShortLinkContainer add(String shortLink, ShortLinkContainer container);
 
     ShortLinkContainer get(String shortLink);
 

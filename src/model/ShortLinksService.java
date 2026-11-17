@@ -4,6 +4,8 @@ import database.ConcurrentHashMapDB;
 import database.Database;
 import model.linkRedaction.LinkRedaction;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class ShortLinksService {
@@ -18,17 +20,22 @@ public class ShortLinksService {
         this.scheduler = new SchedulerToDeleteExpired(links);
     }
 
-    public String addShortLink(String originalLink, UUID user) {
-        String shortLink;
-        do {
-            shortLink = ShortLinkGenerator.generateShortLink();
-        } while (links.has(shortLink));
+    public AddShortLinkResult addShortLink(String originalLink, UUID user) {
+
+        if (!isValidUrl(originalLink)) {
+            return new AddShortLinkResult(AddShortLinkResult.Status.ORIGINAL_LINK_IS_INVALID, null);
+        }
 
         ShortLinkContainer container = new ShortLinkContainer(originalLink, DEFAULT_LIMIT, user);
 
-        links.add(shortLink, container);
+        for (int attempt = 0; attempt < 3; attempt++) {
+            String shortLink = ShortLinkGenerator.generateShortLink();
+            if (links.add(shortLink, container) == null) {
+                return new AddShortLinkResult(AddShortLinkResult.Status.SUCCESS, shortLink);
+            }
+        }
 
-        return shortLink;
+        return new AddShortLinkResult(AddShortLinkResult.Status.FAILED, null);
     }
 
     public ShortLinkInfo getShortLinkInfo(String shortLink, UUID user) {
@@ -78,6 +85,16 @@ public class ShortLinksService {
 
         container.increaseTimesUsed();
         return new ShortLinkUseResult(ShortLinkUseResult.Status.SUCCESS, container.getOriginalLink());
+    }
+
+    private boolean isValidUrl(String url) {
+        if (url == null || url.isBlank()) return false;
+        try {
+            URI uri = new URI(url);
+            return uri.isAbsolute() && uri.getHost() != null;
+        } catch (URISyntaxException e) {
+            return false;
+        }
     }
 
     public void shutdown() {

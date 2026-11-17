@@ -17,7 +17,7 @@ public class App {
         return user;
     }
 
-    public String addShortLunk(String originalLink) {
+    public AddShortLinkResult addShortLunk(String originalLink) {
         if (user == null) createUser();
         return service.addShortLink(originalLink, user);
     }

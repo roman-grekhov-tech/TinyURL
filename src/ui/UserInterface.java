@@ -1,5 +1,6 @@
 package ui;
 
+import model.AddShortLinkResult;
 import model.App;
 import model.ShortLinkInfo;
 import model.ShortLinkUseResult;
@@ -26,10 +27,7 @@ public class UserInterface {
             String input = scanner.nextLine();
 
             if (input.equals("1")) {
-                System.out.println("Введите ссылку, для которой нужно создать короткую ссылку: ");
-                String originalLink = scanner.nextLine();
-                String shortLink = app.addShortLunk(originalLink);
-                System.out.println("Короткая ссылка: " + shortLink);
+                startAddShortLink(scanner);
             }
 
             if (input.equals("2")) {
@@ -89,6 +87,23 @@ public class UserInterface {
         System.out.println("0. Завершить работу");
         System.out.println();
         System.out.print("> ");
+    }
+
+    private void startAddShortLink(Scanner scanner) {
+        System.out.println("Введите ссылку, для которой нужно создать короткую ссылку: ");
+        System.out.println("Пример: https://primer.ru");
+        String originalLink = scanner.nextLine();
+        AddShortLinkResult result = app.addShortLunk(originalLink);
+        handleAddShortLinkResult(result);
+    }
+
+    private void handleAddShortLinkResult(AddShortLinkResult result) {
+        switch (result.getStatus()) {
+            case SUCCESS -> System.out.println("Короткая ссылка: " + result.getShortLink());
+            case ORIGINAL_LINK_IS_INVALID -> System.out.println("Проверьте валидность ссылки");
+            case FAILED -> System.out.println("При генерации ссылки произошла ошибка. " +
+                    "Пожалуйста, попробуйте еще раз.");
+        }
     }
 
     private void openOriginalLink(String originalLink) {
