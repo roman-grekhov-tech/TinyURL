@@ -12,8 +12,8 @@ public class ConcurrentHashMapDB implements Database {
         this.db = new ConcurrentHashMap<>();
     }
 
-    public void add(String shortLink, ShortLinkContainer container) {
-        this.db.putIfAbsent(shortLink, container);
+    public ShortLinkContainer add(String shortLink, ShortLinkContainer container) {
+        return this.db.putIfAbsent(shortLink, container);
     }
 
     public ShortLinkContainer get(String shortLink) {

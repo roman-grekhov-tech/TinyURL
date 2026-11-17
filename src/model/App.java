@@ -1,6 +1,5 @@
 package model;
 
-import database.ConcurrentHashMapDB;
 import model.linkRedaction.LinkRedaction;
 
 import java.util.UUID;
@@ -11,14 +10,14 @@ public class App {
 
     public App() {
         this.user = null;
-        this.service = new ShortLinksService(new ConcurrentHashMapDB());
+        this.service = new ShortLinksService();
     }
 
     public UUID getUser() {
         return user;
     }
 
-    public String addShortLunk(String originalLink) {
+    public AddShortLinkResult addShortLunk(String originalLink) {
         if (user == null) createUser();
         return service.addShortLink(originalLink, user);
     }
